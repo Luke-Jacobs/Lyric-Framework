@@ -1,0 +1,6 @@
+Lyric Collection
+    Lyric[] data
+    String id
+
+    Counter getWordCount()
+    set getVocabulary()
