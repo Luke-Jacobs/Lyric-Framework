@@ -53,51 +53,53 @@ Make sure to set a delay of at least 8 seconds out of consideration for the serv
 
 ## Ranking data
 
-The framework can rank a group of albums, artists, or genres by word frequencies. For example, I ranked all the artists in my Collection by the frequency of self-referencing pronoun usage. So the more an artist uses the wordset ["I", "me", "my", "us", "we"], the higher on the list they will be. Here are my results:
+The framework can rank a group of albums, artists, or genres by word frequencies. For example, I ranked all the artists in my Collection by the frequency of self-referencing pronoun usage. So the more an artist uses the wordset ["I", "me", "my", "us"], the higher on the list they will be. Here are my results:
 
-0: Skillet - 0.05974624416109077
-1: Tenth Avenue North - 0.05897611963073167
-2: Fireflight - 0.056988961298044954
-3: Hillsong United - 0.055649751725808404
-4: Ledger - 0.05546492659053834
-5: Adele - 0.05535703090715316
-6: Aaron Cole - 0.05328582083367863
-7: Disciple - 0.052732658442108005
-8: Ed Sheeran - 0.05227321555471087
-9: David Crowder Band - 0.051805237732011185
-10: Nine Lashes - 0.051383781691503774
-11: Thousand Foot Krutch - 0.050532530678397775
-12: Chris Tomlin - 0.049505644765444216
-13: Tobymac - 0.048935649620748714
-14: Red - 0.04891671269870496
-15: Rihanna - 0.048793984570814755
-16: Trip Lee - 0.04864018709215043
-17: Social Club Misfits - 0.048564862583247354
-18: Letter Black - 0.04809560823940925
-19: Wolves At The Gate - 0.04753473168074094
-20: Ashes Remain - 0.04677914110429448
-21: We As Human - 0.046126401630988786
-22: Justin Bieber - 0.045850733854338147
-23: Memphis May Fire - 0.045748464274167476
-24: NF - 0.045202644054216465
-25: Lauren Daigle - 0.044606553456110976
-26: KB - 0.044504250221536645
-27: Casting Crowns - 0.04415291808997747
-28: Decyfer Down - 0.04301708898055392
-29: Lecrae - 0.042814639905549
-30: Tedashii - 0.04252167888965863
-31: Andy Mineo - 0.042098276720316685
-32: Derek Minor - 0.042022366399180465
-33: Lady Gaga - 0.04185427752762996
-34: Demon Hunter - 0.0413989720526823
-35: Madonna - 0.0409186460874355
-36: Pillar - 0.04020869959734589
-37: Maroon 5 - 0.03998570957458503
-38: Flyleaf - 0.03978310186465999
-39: Katy Perry - 0.03974487243621811
-40: Newsboys - 0.03861072379262264
-41: Flame - 0.03737278322871595
-42: Lacey Sturm - 0.037299210454669204
-43: Taylor Swift - 0.03666388021177057
-44: For King & Country - 0.03612435372322568
-45: Matthew West - 0.033403504426970466
+```
+0: Ledger - 0.06
+1: Skillet - 0.05
+2: Fireflight - 0.05
+3: Adele - 0.05
+4: Hillsong United - 0.05
+5: Ed Sheeran - 0.05
+6: Disciple - 0.05
+7: Aaron Cole - 0.05
+8: Tenth Avenue North - 0.04
+9: Letter Black - 0.04
+10: Ashes Remain - 0.04
+11: Decyfer Down - 0.04
+12: Wolves At The Gate - 0.04
+13: Rihanna - 0.04
+14: Lauren Daigle - 0.04
+15: NF - 0.04
+16: Chris Tomlin - 0.04
+17: Red - 0.04
+18: David Crowder Band - 0.04
+19: Justin Bieber - 0.04
+20: Nine Lashes - 0.04
+21: Madonna - 0.04
+22: Casting Crowns - 0.04
+23: Lady Gaga - 0.04
+24: Thousand Foot Krutch - 0.04
+25: Maroon 5 - 0.04
+26: We As Human - 0.04
+27: Memphis May Fire - 0.04
+28: Social Club Misfits - 0.03
+29: Lecrae - 0.03
+30: KB - 0.03
+31: Andy Mineo - 0.03
+32: Lacey Sturm - 0.03
+33: Tobymac - 0.03
+34: Katy Perry - 0.03
+35: Derek Minor - 0.03
+36: Flyleaf - 0.03
+37: Trip Lee - 0.03
+38: Demon Hunter - 0.03
+39: Taylor Swift - 0.03
+40: Newsboys - 0.03
+41: Tedashii - 0.03
+42: Matthew West - 0.03
+43: For King & Country - 0.03
+44: Pillar - 0.03
+45: Flame - 0.02
+```
