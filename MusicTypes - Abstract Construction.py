@@ -606,7 +606,7 @@ class Collection(CollectionBase):
             if artist:  # if found we found the artist we want to remove
                 unit.units.remove(artist)  # Remove artist object from the internal class memory of a genre
 
-    def downloadArtistsFromList(self, listfile: str) -> None:
+    def downloadArtistsFromList(self, listfile: str, delay=10) -> None:
         """Downloads many artists and adds them to respective genres."""
         with open(listfile, "r") as fp:
             # For each artist - genreTitle pair
@@ -614,7 +614,7 @@ class Collection(CollectionBase):
                 # Download Artist obj
                 artistName, genreTitle = line.replace("\n", "").split(" - ")
                 artist = Artist.fromName(artistName)
-                artist.download()
+                artist.download(delay)
                 # Add Artist to our collection by creating/appending to a new/existing Genre obj
                 self.addArtistToGenre(artist, genreTitle)
 
@@ -637,101 +637,58 @@ class Analysis:
     Analytical functions to use with Collection objects.
     """
 
-    @staticmethod
-    def graphGenresWithPCA(genres: list, xName=None, yName=None,
-                           title=None, returnVectors=False):
-        """Graph Artists in a scatterplot using PCA to reduce word count dimensions."""
-        # Order our data
-        allArtists = [artist for genre in genres for artist in genre.artists]  # List of Artist objs
-        orderedNames = [artist.name for artist in allArtists]  # Artist names in order
-
-        # Collect all artists' vocabulary
-        allVocab = set()
-        for artist in allArtists:
-            voc = artist.getVocabulary()
-            allVocab.update(voc)
-        allVocab = list(allVocab)  # List of all vocab words among genres: ['A', 'B', ...] -
-
-        # Fancy graph variables for color and a legend
-        nodeColor = ['purple']*len(allArtists)  # The default color is purple
-        colors = ['red', 'green', 'blue', 'yellow', 'orange', 'purple']
-        legendData = []
-
-        artistsWordVectors = [[None]]*len(allArtists)
-        for i in range(len(genres)):
-            genreColor = colors[i]
-            for artist in genres[i].artists:  # Get word vectors for every artist to process by PCA
-                wordVector = []  # Fixed length vector: [7, 6, 34, ...]
-                wordCount = artist.getWordCount()
-                for vocabWord in allVocab:
-                    wordVector.append(wordCount[vocabWord])
-                index = orderedNames.index(artist.name)
-                artistsWordVectors[index] = wordVector
-                nodeColor[index] = genreColor
-            legendData.append(mpatches.Patch(color=genreColor, label=genres[i].title))  # Add new genre to legend
-
-        # PCA on artist vectors
-        pca = PCA(n_components=2).fit(artistsWordVectors)  # Setup and fit our model
-        data2D = pca.transform(artistsWordVectors)  # Use model to reduce long vectors to 2d vectors
-
-        # Graph PCA results
-        ax = plt.axes()
-        ax.axis('equal')  # Force graph zoom to be proportional - x and y scale are the same
-        ax.scatter(data2D[:, 0], data2D[:, 1], c=nodeColor)  # Plot our PCA points with corresponding color data
-        ax.legend(handles=legendData)
-        for i, name in enumerate(orderedNames):  # Assign
-            ax.annotate(name, (data2D[i, 0]+1, data2D[i, 1]+1))
-        if xName:  # If caller specifies x-axis title
-            ax.set_xlabel(xName)
-        if yName:  # If caller specifies y-axis title
-            ax.set_ylabel(yName)
-        if title:  # If caller specifies graph title
-            ax.set_title(title)
-        plt.show()
-
-        # Return results
-        if returnVectors:  # If the caller wants data to return
-            return artistsWordVectors, data2D
-        else:
-            return None
+    # Wordset constants
+    selfPronouns = ["me", "my", "mine"]
+    collectivePronouns = ["we", "our", "us"]
+    thirdPersonPronouns = ["you", "your", "he", "she", "his", "her", "they", "them"]
+    # Cluster methods
+    PCA = 0
+    tSNE = 1
 
     @staticmethod
-    def graphWithTSNE(lyricCollection: CollectionBase, code: int,
-                      xName=None, yName=None,
-                      title=None, returnVectors=False):
+    def graphWithClustering(lyricCollection: CollectionBase,
+                            code: int, names=None,
+                            clusterMethod=0,
+                            xName=None, yName=None,
+                            title=None, returnVectors=False):
         """
         Graph Artists in a scatterplot using tSNE to reduce word count dimensions.
         tSNE uses stochastic techniques as opposed to PCA which uses linear transformations.
         Reference: https://lvdmaaten.github.io/tsne/
         """
 
-        # TODO Add automatic coloring
-
         # Collect all artists' vocabulary
         allVocab = list(lyricCollection.getVocabulary())  # List of all vocab words among genres: ['A', 'B', ...] -
 
         # Setup our points
-        lyricObjects = lyricCollection.getItemsFromCode(code)  # Get the objects to graph - these are our points
+        if names:
+            lyricObjects = lyricCollection.getItemsFromNames(names, code)
+        else:
+            lyricObjects = lyricCollection.getItemsFromCode(code)  # Get the objects to graph - these are our points
         if lyricObjects is None:
             raise RuntimeError('Lyric collection yielded no objects with code (%d)' % code)
         orderedNames = [lyricObject.getName() for lyricObject in lyricObjects]
 
-        # Categorize, Color, and build a legend for our points
+        # Categorize
         categories = lyricCollection.getItemsFromCode(code + 1)
         if categories is None:
             raise RuntimeError('Cannot retrieve point categories')
         categoryNames = [superObj.getName() for superObj in categories]
         print('Categories: %s' % str(categoryNames))
+
+        # Color and build legend data
         colors = ['red', 'green', 'blue', 'yellow', 'orange', 'purple']
-        colorData = []
-        try:
-            for i, category in enumerate(categories):
-                colorData += [colors[i]]*len(category)
-            legendData = [mpatches.Patch(color=colors[i], label=categoryNames[i]) for i in range(len(categoryNames))]
-        except IndexError:
-            colorData = None
-            legendData = None
-            warnings.warn('Too many categories to fit color scheme')
+        colorData = legendData = None
+        if len(categories) > 1:
+            colorData = []
+            try:
+                for i, category in enumerate(categories):
+                    colorData += [colors[i]] * len(category)  # Doesn't work with names
+                legendData = [mpatches.Patch(color=colors[i], label=categoryNames[i]) for i in range(len(categoryNames))]
+            except IndexError:
+                colorData = None
+                legendData = None
+                warnings.warn('Too many categories to fit color scheme')
 
         # Setup word vectors
         objectWordVectors = [[None]] * len(lyricObjects)
@@ -742,8 +699,13 @@ class Analysis:
                 wordVector.append(wordCount[vocabWord])
             objectWordVectors[i] = wordVector
 
-        # Transform artist vectors
-        data2D = TSNE(n_components=2).fit_transform(objectWordVectors)  # Use model to reduce long vectors to 2d vectors
+        # Transform artist vectors from n-dimensional length to 2d length
+        if clusterMethod == Analysis.PCA:
+            data2D = TSNE(n_components=2).fit_transform(objectWordVectors)
+        elif clusterMethod == Analysis.tSNE:
+            data2D = PCA(n_components=2).fit_transform(objectWordVectors)
+        else:
+            raise RuntimeError('No cluster method selected!')
 
         # Graph transformation results
         ax = plt.axes()
@@ -767,8 +729,10 @@ class Analysis:
             return None
 
     @staticmethod
-    def graphGenresByWordsets(genres: list, wordsetX: list, wordsetY: list,
-                              xName=None, yName=None, showArtistNames=True):
+    def graphByWordsets(lyricCollection: CollectionBase, code: int,
+                        wordsetX: list, wordsetY: list,
+                        names=None,
+                        xName=None, yName=None, showArtistNames=True):
         """
         Graph artists in a scatterplot with genre-based coloring.
         Each artist's position is determined by their vocabulary's frequency
@@ -776,21 +740,26 @@ class Analysis:
         """
 
         colors = ['red', 'green', 'blue', 'yellow', 'orange', 'purple']
-        artistsLoc = []
+        artistsLoc = []  # list of x, y tuples for graphing
         artistsName = []  # list of artist names
-        artistsColor = []  # list of node colors
-        legendPatches = []  # list for legend
+        artistsColor = None  # list of node colors
+        legendPatches = None  # list for legend
 
-        # Generate our graph data from each Artist object
-        for i, genre in enumerate(genres):
-            currentColor = colors[i]
-            legendPatches.append(mpatches.Patch(color=currentColor, label=genre.title))
-            for artist in genre.artists:  # add points to empty lists
-                xfreq = artist.getWordsetCount(wordsetX)
-                yfreq = artist.getWordsetCount(wordsetY)
-                artistsLoc.append((xfreq, yfreq))
-                artistsName.append(artist.name)
-                artistsColor.append(currentColor)
+        if names:
+            lyricObjects = lyricCollection.getItemsFromNames(names, code)
+            categoryObjects = None
+        else:
+            lyricObjects = lyricCollection.getItemsFromCode(code)
+            categoryObjects = lyricCollection.getItemsFromCode(code + 1)
+
+        # Generate our graph data from each lyric object
+        for lyricObject in lyricObjects:  # add points to empty lists
+            xfreq = lyricObject.getWordsetFrequency(wordsetX)
+            yfreq = lyricObject.getWordsetFrequency(wordsetY)
+            artistsLoc.append((xfreq, yfreq))
+            artistsName.append(lyricObject.getName())
+
+        # TODO Auto coloring
 
         # Graph it!
         data = np.array(artistsLoc, dtype=float)
@@ -803,10 +772,16 @@ class Analysis:
         if showArtistNames:
             for i, name in enumerate(artistsName):
                 ax.annotate(name, (data[i, 0], data[i, 1]))
+
         if xName:
             ax.set_xlabel(xName)
+        else:
+            ax.set_xlabel("Frequency of: " + str(wordsetX))
+
         if yName:
             ax.set_ylabel(yName)
+        else:
+            ax.set_ylabel("Frequency of: " + str(wordsetY))
 
         plt.show()
 
@@ -920,94 +895,157 @@ class Analysis:
         return comparisons  # Dictionary {artistName: similarity score}
 
 
-selfPronouns = ["me", "my", "mine"]
-collectivePronouns = ["we", "our", "us"]
-otherPronouns = ["you", "your", "he", "she", "his", "her", "they", "them"]
+# Parsing functions
+def parseInputs() -> None:
+    """A commandline interface to the framework."""
 
-
-def parseInputs():
-    INSUFFICIENT_ARGUMENTS = -1
-
+    # Setup general structure
     args = argparse.ArgumentParser(description='A program to download and analyze lyrics')
-    args.add_argument('mode', type=str,
-                      help='The mode of program function, either download, graph, or rank')
+    subparsers = args.add_subparsers(title='mode', help='The mode of program function, either download, graph, or rank')
+
+    downloadParser = subparsers.add_parser('download', help='For downloading new lyrics')
+    rankParser = subparsers.add_parser('rank', help='For ranking various songs/albums/artists/genres on criteria')
+    graphParser = subparsers.add_parser('graph', help='For graphing data like word choice or artist similarity')
+    getParser = subparsers.add_parser('get', help='For grabbing values from a collection object')
 
     # Download args
-    args.add_argument('-o', '--output', help='The file to store the downloaded lyric data')
-    args.add_argument('-i', '--input', help='The file that contains a list of artists to download')
-    args.add_argument('-d', '--delay', help='Delay of the downloader for each song')
-
-    # Specification args
-    args.add_argument('-c', '--collection', required=False,
-                      help='Collection to be an input')
-    args.add_argument('-a', '--artists', required=False, nargs='+',
-                      help='Artist names in collection to be specified as inputs')
-    args.add_argument('-g', '--genres', required=False, nargs='+',
-                      help='Genre names in collection to be specified as inputs')
-
-    # Graphing args
-    # -Additional Options
-    args.add_argument('-pca', required=False, default=False, action="store_true",
-                      help='Use Principle Component Analysis to graph artists')
-    args.add_argument('-scatter', required=False, default=False, action="store_true",
-                      help='Make a scatterplot')
-    args.add_argument('-x', required=False, nargs='+',  # Accepts a list of strings (wordset)
-                      help='X axis wordset')
-    args.add_argument('-y', required=False, nargs='+',  # Same as X wordset
-                      help='Y axis wordset')
+    downloadParser.add_argument('-o', '--output', required=False,
+                                help='The file to store the downloaded lyric data')
+    downloadParser.add_argument('-a', '--append', required=False,
+                                help='The file to append the new downloaded data to')
+    downloadParser.add_argument('-i', '--input', help='The file that contains a list of artists to download')
+    downloadParser.add_argument('-d', '--delay', type=int, default=None,
+                                help='Delay of the downloader for each song')
+    downloadParser.set_defaults(func=downloadParse)
 
     # Rank args
-    args.add_argument('-w', '--wordset', nargs='+',
-                      help='Input wordset used to rank lyric collection')
+    rankParser.add_argument('-c', '--collection',
+                            help='Collection to be an input')
+    rankParser.add_argument('-b', '--albums', required=False, nargs='+',
+                            help='Albums in collection to be specified as inputs')
+    rankParser.add_argument('-a', '--artists', required=False, nargs='+',
+                            help='Artist names in collection to be specified as inputs')
+    rankParser.add_argument('-g', '--genres', required=False, nargs='+',
+                            help='Genre names in collection to be specified as inputs')
+    rankParser.add_argument('-w', '--wordset', nargs='+',
+                            help='Input wordset used to rank lyric collection')
+    rankParser.set_defaults(func=rankParse)
+
+    # Get args
+    getParser.add_argument('type', help='The type of value to receive (songs, albums, artists)')
+    getParser.add_argument('-c', '--collection',
+                           help='Collection to be an input')
+    getParser.add_argument('-b', '--albums', required=False, nargs='+',
+                           help='Albums in collection to be specified as inputs')
+    getParser.add_argument('-a', '--artists', required=False, nargs='+',
+                           help='Artist names in collection to be specified as inputs')
+    getParser.add_argument('-g', '--genres', required=False, nargs='+',
+                           help='Genre names in collection to be specified as inputs')
+
+    # Graphing args
+    # - Specify inputs
+    graphParser.add_argument('-c', '--collection', required=False,
+                             help='Collection to be an input')
+    graphParser.add_argument('-b', '--albums', required=False, nargs='+',
+                             help='Album names in collection to be specified as inputs')
+    graphParser.add_argument('-a', '--artists', required=False, nargs='+',
+                             help='Artist names in collection to be specified as inputs')
+    graphParser.add_argument('-g', '--genres', required=False, nargs='+',
+                             help='Genre names in collection to be specified as inputs')
+    # - Graph options
+    graphParser.add_argument('-pca', required=False, default=False, action="store_true",
+                             help='Use Principle Component Analysis to cluster points')
+    graphParser.add_argument('-tsne', required=False, default=False, action="store_true",
+                             help='Use t-distributed Stochastic Neighbor Embedding to cluster points')
+    graphParser.add_argument('-scatter', required=False, default=False, action="store_true",
+                             help='Make a scatterplot')
+    graphParser.add_argument('-x', required=False, nargs='+',  # Accepts a list of strings (wordset)
+                             help='X axis wordset')
+    graphParser.add_argument('-y', required=False, nargs='+',  # Same as X wordset
+                             help='Y axis wordset')
+    graphParser.set_defaults(func=graphParse)
 
     # Parse args
-    args = args.parse_args()
+    result = args.parse_args()
+    result.func(result)
 
-    if args.mode == 'download':  # If the user wants to download some lyrics
-        pass
-    elif args.mode == 'graph':  # If the user wants to use stats to graph lyric data
-        if args.collection:  # Draw inputs from our repository of lyrics
-            collection = Collection.restore(args.collection)  # Load collection from arguments
-            if args.genres:
-                code = CollectionBase.GENRE
-            elif args.artists:
-                code = CollectionBase.ARTIST
-            else:
-                code = CollectionBase.GENRE
-            Analysis.graphWithTSNE(collection, code)  # TODO Add support for specific albums/artists
-        else:
-            print('No collection to draw from')
-            exit(INSUFFICIENT_ARGUMENTS)
-    elif args.mode == 'rank':  # If the user wants to rank songs/albums/artists/genres on certain criteria
-        if args.collection:  # Draw inputs from our repository of lyrics
-            collection = Collection.restore(args.collection)  # Load collection from arguments
-            if args.genres:  # Specified genres to rank
-                rankingObjs = collection.getItemsFromNames(args.genres, CollectionBase.GENRE)
-            elif args.artists:  # Specified artists to rank
-                rankingObjs = collection.getItemsFromNames(args.artists, CollectionBase.ARTIST)
-            else:  # By default, rank all genres
-                rankingObjs = collection.getItems()
-            results = Analysis.rankByWordsetFrequency(rankingObjs, args.wordset)
-            Analysis.printRanking(results)  # For pretty output
-        else:
-            print('No collection to draw from')
-            exit(INSUFFICIENT_ARGUMENTS)
+
+def downloadParse(args):
+    """Parses the download mode arguments. Writes the downloaded lyrics to a file."""
+    if args.output:
+        collection = Collection()
+        writePath = args.output
+    elif args.append:
+        collection = Collection.restore(args.append)
+        writePath = args.append
     else:
-        print('Unknown mode')
-        return -1
+        raise RuntimeError('Need either output or append option')
+
+    collection.downloadArtistsFromList(args.input, args.delay)
+    collection.save(writePath)
+
+
+def rankParse(args):
+    """Parse arguments for the ranking mode."""
+    if not args.collection:  # The next operations require a collection to be specified
+        raise RuntimeError('No collection to draw from')
+
+    collection = Collection.restore(args.collection)  # Load collection from arguments
+    if args.genres:  # Specified genres to rank
+        rankingObjs = collection.getItemsFromNames(args.genres, CollectionBase.GENRE)
+    elif args.artists:  # Specified artists to rank
+        rankingObjs = collection.getItemsFromNames(args.artists, CollectionBase.ARTIST)
+    elif args.albums:  # Specified albums to rank
+        rankingObjs = collection.getItemsFromNames(args.albums, CollectionBase.ALBUM)
+    else:  # By default, rank all genres
+        rankingObjs = collection.getItems()
+    results = Analysis.rankByWordsetFrequency(rankingObjs, args.wordset)
+    Analysis.printRanking(results)  # For pretty output
+
+
+def getParse(args):
+    """Parse arguments for the 'get' mode"""
+    pass
+
+
+def graphParse(args):
+    """Parse arguments for the graph mode."""
+    if not args.collection:  # The next operations require a collection to be specified
+        raise RuntimeError('No collection to draw from')
+
+    collection = Collection.restore(args.collection)  # Load collection from arguments
+    if args.genres:
+        code = CollectionBase.GENRE
+        names = args.genres
+    elif args.artists:
+        code = CollectionBase.ARTIST
+        names = args.artists
+    elif args.albums:
+        code = CollectionBase.ALBUM
+        names = args.albums
+    else:
+        code = CollectionBase.GENRE
+        names = None
+
+    if names[0] == "*":  # If the user wants to use every artist/genre in the collection
+        names = None
+
+    if args.tsne or args.pca:
+        if args.tsne:
+            method = Analysis.tSNE
+        elif args.pca:
+            method = Analysis.PCA
+        else:
+            method = Analysis.PCA  # Default
+        Analysis.graphWithClustering(collection, code, clusterMethod=method, names=names)
+    elif args.scatter:
+        Analysis.graphByWordsets(collection, code, args.x, args.y, names=names)
 
 
 if __name__ == "__main__":
-    # parseInputs()
-
-    mc = Collection.restore('MC v1.0')
-    Analysis.graphWithTSNE(mc,
-                           CollectionBase.ALBUM,
-                           xName='tSNE X Axis',
-                           yName='tSNE Y Axis',
-                           title='tSNE Artist Clustering')
-
+    parseInputs()
     exit(0)
+
     # mc = Collection.restore("Music Collection - Failed")
     # try:
     #     mc.downloadArtistsFromList("Artist List.txt")
@@ -1016,12 +1054,12 @@ if __name__ == "__main__":
     #     mc.save("Music Collection - Failed")
     #     exit(-1)
     # mc.save("Music Collection - Updated")
-
-    raw, processed = Analysis.graphGenresWithPCA(mc.genres,
-                                                 xName='Principle Component 1 (correlated with size)',
-                                                 yName='Principle Component 2',
-                                                 title='Artist vocabulary clustered by similarity',
-                                                 returnVectors=True)
-
-    Utilities.writeIterable(raw, "RawArtistVectors.txt")
-    Utilities.writeIterable(processed, "ProcessedPCAVectors.txt")
+    #
+    # raw, processed = Analysis.graphGenresWithPCA(mc.genres,
+    #                                              xName='Principle Component 1 (correlated with size)',
+    #                                              yName='Principle Component 2',
+    #                                              title='Artist vocabulary clustered by similarity',
+    #                                              returnVectors=True)
+    #
+    # Utilities.writeIterable(raw, "RawArtistVectors.txt")
+    # Utilities.writeIterable(processed, "ProcessedPCAVectors.txt")
