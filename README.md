@@ -53,7 +53,7 @@ Make sure to set a delay of at least 8 seconds out of consideration for the serv
 
 ## Ranking data
 
-The framework can rank a group of albums, artists, or genres by word frequencies. For example, I ranked all the artists in my Collection by the frequency of self-referencing pronoun usage. So the more an artist uses the wordset ["I", "me", "my", "us"], the higher on the list they will be. Here are my results:
+The framework can rank a group of albums, artists, or genres by word frequencies. For example, I ranked all the artists in my Collection by the frequency of self-referencing pronoun usage. So the more an artist uses the wordset ```["I", "me", "my", "us"]```, the higher on the list they will be. Here are my results:
 
 ```
 0: Ledger - 0.06
@@ -103,3 +103,5 @@ The framework can rank a group of albums, artists, or genres by word frequencies
 44: Pillar - 0.03
 45: Flame - 0.02
 ```
+
+According to the data, the artist "Ledger" has a wordset frequency of 6%. That means that 6% of the words she writes for lyrics are in the wordset that I specified! This suggests that her songs deal with the individual much more than an artist like "Flame"...
