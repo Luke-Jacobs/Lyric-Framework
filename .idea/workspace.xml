@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="879ddf0b-aea8-4a97-be3c-bd9df30be7d7" name="Default" comment="First commit">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/MusicTypes - Abstract Construction.py" beforeDir="false" afterPath="$PROJECT_DIR$/MusicTypes - Abstract Construction.py" afterDir="false" />
     </list>
     <ignored path=".idea/" />
@@ -16,8 +17,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/MusicTypes - Abstract Construction.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="81">
-              <caret line="734" selection-start-line="734" selection-end-line="734" />
+            <state relative-caret-position="374">
+              <caret line="801" lean-forward="true" selection-start-line="801" selection-end-line="801" />
               <folding>
                 <element signature="e#327#1606#0" />
                 <element signature="e#380#572#0" />
@@ -134,7 +135,6 @@
                 <element signature="e#31107#31329#0" />
                 <element signature="e#31377#31500#0" />
                 <element signature="e#31726#31989#0" />
-                <element signature="e#27658#29471#0" />
                 <element signature="e#30224#30409#1" />
                 <element signature="e#28110#28206#0" />
                 <element signature="e#28233#28359#0" />
@@ -554,13 +554,14 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="762" y="0" width="781" height="830" extended-state="0" />
+    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" sideWeight="0.45042494" weight="0.16644295" />
       <window_info id="Structure" order="1" sideWeight="0.5495751" side_tool="true" weight="0.16577181" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Event Log" order="0" sideWeight="0.50067115" side_tool="true" weight="0.3286119" />
       <window_info anchor="bottom" id="Version Control" order="1" weight="0.3286119" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="2" visible="true" weight="0.5802292" />
+      <window_info anchor="bottom" id="Terminal" order="2" weight="0.5802292" />
       <window_info anchor="bottom" id="Message" order="3" />
       <window_info anchor="bottom" id="Find" order="4" weight="0.3286119" />
       <window_info anchor="bottom" id="Cvs" order="5" weight="0.25" />
@@ -889,8 +890,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/MusicTypes - Abstract Construction.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="81">
-          <caret line="734" selection-start-line="734" selection-end-line="734" />
+        <state relative-caret-position="374">
+          <caret line="801" lean-forward="true" selection-start-line="801" selection-end-line="801" />
           <folding>
             <element signature="e#327#1606#0" />
             <element signature="e#380#572#0" />
@@ -1007,7 +1008,6 @@
             <element signature="e#31107#31329#0" />
             <element signature="e#31377#31500#0" />
             <element signature="e#31726#31989#0" />
-            <element signature="e#27658#29471#0" />
             <element signature="e#30224#30409#1" />
             <element signature="e#28110#28206#0" />
             <element signature="e#28233#28359#0" />

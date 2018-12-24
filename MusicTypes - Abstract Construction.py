@@ -744,7 +744,7 @@ class Analysis:
     def graphByWordsets(lyricCollection: CollectionBase, code: int,
                         wordsetX: list, wordsetY: list,
                         names=None,
-                        xName=None, yName=None, showArtistNames=True):
+                        xName=None, yName=None, title=None, showArtistNames=True):
         """
         Graph artists in a scatterplot with genre-based coloring.
         Each artist's position is determined by their vocabulary's frequency
@@ -794,6 +794,11 @@ class Analysis:
             ax.set_ylabel(yName)
         else:
             ax.set_ylabel("Frequency of: " + str(wordsetY))
+
+        if title:
+            ax.set_title(title)
+        else:
+            ax.set_title('Wordset Analysis')
 
         plt.show()
 
