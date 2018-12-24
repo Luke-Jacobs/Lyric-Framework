@@ -8,7 +8,7 @@ This program is a framework for collecting and analyzing lyrics.
   - title (str)
   - lyrics (str)
   - methods for analysis (vocabulary and word counts)
-- CollectionBase
+- CollectionBase - base class for objects that contain lyrics
   - Album - contain Songs
   - Artist - contain Albums
   - Genre - contain Artists
@@ -153,11 +153,11 @@ This command creates this graph:
 
 ![Zoomed Out Results](Pictures/tSNE%20Zoomed%20Out.png)
 
-We can zoom in further to see clustering by genre:
+There is obviously a lot of data to look through! We can zoom in further to see clustering by genre:
 
 ![Zoomed Results](Pictures/tSNE%20Zoom.png)
 
-This is support for my hypothesis that word choice in lyrics is correlated to that artist's genre.
+The clustering that we see in this figure is support for my hypothesis that word choice in lyrics is correlated to that artist's genre.
 
 ## 2-dimensional wordset scatterplot
 
@@ -168,3 +168,5 @@ python LyricFramework.py graph -c "Data/MusicCollection" --artists * -scatter -x
 ```
 
 ![Wordset 1](Pictures/Wordset%20Analysis%201.png)
+
+From this graph we can again infer some of the subject matter that inspires these artists. 
