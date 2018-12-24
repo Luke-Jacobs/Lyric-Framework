@@ -232,6 +232,8 @@ class CollectionBase:
     def getItemsFromNames(self, names: list, code: int) -> list:
         """Retrieves objects given their names."""
         itemsWithCode = self.getItemsFromCode(code)  # The items with the code the caller is looking for
+        if names[0] == "*":
+            return itemsWithCode  # Return it all if we got a special asterick
         total = []
         for item in itemsWithCode:
             if item.getName() in names:
@@ -714,12 +716,22 @@ class Analysis:
         ax.scatter(data2D[:, 0], data2D[:, 1], c=colorData)  # Plot our PCA points with corresponding color data
         for i, name in enumerate(orderedNames):  # Assign
             ax.annotate(name, (data2D[i, 0], data2D[i, 1]))
+
         if xName:  # If caller specifies x-axis title
             ax.set_xlabel(xName)
+        else:
+            ax.set_xlabel('tSNE X value')
+
         if yName:  # If caller specifies y-axis title
             ax.set_ylabel(yName)
+        else:
+            ax.set_ylabel('tSNE Y value')
+
         if title:  # If caller specifies graph title
             ax.set_title(title)
+        else:
+            ax.set_title('tSNE Cluster Graph')
+
         plt.show()
 
         # Return results
@@ -867,7 +879,7 @@ class Analysis:
     def printRanking(ranking: list) -> None:
         """Convenience function to print a ranking in a pretty way."""
         for i, entry in enumerate(ranking):
-            print("%d: %s - %s" % (i, str(entry[0]), str(entry[1])))  # Number - Object - Ranking value
+            print("%d: %s - %.2f" % (i, str(entry[0]), entry[1]))  # Number - Object - Ranking value
 
     @staticmethod
     def getUniqueVocabOfTarget(target, others: list) -> set:
@@ -896,6 +908,7 @@ class Analysis:
 
 
 # Parsing functions
+
 def parseInputs() -> None:
     """A commandline interface to the framework."""
 
@@ -1010,6 +1023,7 @@ def getParse(args):
 
 def graphParse(args):
     """Parse arguments for the graph mode."""
+
     if not args.collection:  # The next operations require a collection to be specified
         raise RuntimeError('No collection to draw from')
 

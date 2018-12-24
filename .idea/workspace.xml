@@ -2,32 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="879ddf0b-aea8-4a97-be3c-bd9df30be7d7" name="Default" comment="First commit">
-      <change beforePath="$PROJECT_DIR$/CSR and CM vocab intersection" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Christian Metal" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Christian Metal 2.genre" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Christian Metal Artist Word Frequencies" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Christian Metal Genre - Copy" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Christian Metal Vocabulary" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Christian Metal.genre" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Christian Rap" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Christian Rap.genre" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Christian Soft Rock" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Christian Soft Rock Genre - Complete" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Christian Soft Rock Genre - Complete 2" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Christian Soft Rock Genre - Failed" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Christian Soft Rock Genre 3 - Copy" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Christian Soft Rock.genre" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ChristianMetalArtists.songs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MC v1.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modern Pop" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modern Pop - Error" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modern Pop.genre" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Music Collection" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Music Collection - Backup" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Music Collection - Copy" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Music Collection - Copy (2)" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Music Collection - Failed" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Music Collection - Updated" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/MusicTypes - Abstract Construction.py" beforeDir="false" afterPath="$PROJECT_DIR$/MusicTypes - Abstract Construction.py" afterDir="false" />
     </list>
     <ignored path=".idea/" />
@@ -42,8 +16,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/MusicTypes - Abstract Construction.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="350">
-              <caret line="784" lean-forward="true" selection-start-line="784" selection-end-line="784" />
+            <state relative-caret-position="81">
+              <caret line="734" selection-start-line="734" selection-end-line="734" />
               <folding>
                 <element signature="e#327#1606#0" />
                 <element signature="e#380#572#0" />
@@ -75,6 +49,7 @@
                 <element signature="e#5748#5862#0" />
                 <element signature="e#6110#6679#0" />
                 <element signature="e#6730#7084#0" />
+                <element signature="e#7767#12491#0" />
                 <element signature="e#6832#7013#1" />
                 <element signature="e#8082#8385#0" />
                 <element signature="e#8236#8313#0" />
@@ -154,17 +129,18 @@
                 <element signature="e#23521#23721#0" />
                 <element signature="e#23773#23897#0" />
                 <element signature="e#23920#23988#1" />
-                <element signature="e#23820#27132#0" />
                 <element signature="e#29760#30020#1" />
                 <element signature="e#25221#25664#0" />
                 <element signature="e#31107#31329#0" />
                 <element signature="e#31377#31500#0" />
                 <element signature="e#31726#31989#0" />
+                <element signature="e#27658#29471#0" />
                 <element signature="e#30224#30409#1" />
                 <element signature="e#28110#28206#0" />
                 <element signature="e#28233#28359#0" />
                 <element signature="e#28500#28703#0" />
                 <element signature="e#28713#28733#0" />
+                <element signature="e#31507#31605#0" />
                 <element signature="e#31892#34938#0" />
                 <element signature="e#31892#32074#1" />
                 <element signature="e#32173#32250#0" />
@@ -178,7 +154,7 @@
                 <element signature="e#34090#34180#0" />
                 <element signature="e#35041#35493#0" />
                 <element signature="e#35220#35352#0" />
-                <element signature="e#35566#35776#0" />
+                <element signature="e#33437#33642#0" />
                 <element signature="e#35865#36289#0" />
                 <element signature="e#35221#35382#1" />
                 <element signature="e#36386#36854#0" />
@@ -190,6 +166,7 @@
                 <element signature="e#40837#40913#0" />
                 <element signature="e#39608#40324#0" />
                 <element signature="e#40691#40695#0" />
+                <element signature="e#40272#41341#0" />
                 <element signature="e#40285#40340#0" />
                 <element signature="e#40372#40429#0" />
                 <element signature="e#40590#40645#0" />
@@ -207,7 +184,7 @@
         <entry file="file://$PROJECT_DIR$/MusicTypes.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="592">
-              <caret line="1072" lean-forward="true" selection-start-line="1072" selection-end-line="1072" />
+              <caret line="1072" selection-start-line="1072" selection-end-line="1072" />
               <folding>
                 <element signature="e#347#1626#0" />
                 <element signature="e#400#592#0" />
@@ -310,10 +287,10 @@
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-8" />
-    <option name="width" value="975" />
-    <option name="height" value="1048" />
+  <component name="ProjectFrameBounds">
+    <option name="x" value="952" />
+    <option name="width" value="977" />
+    <option name="height" value="1038" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -576,15 +553,14 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
-    <editor active="true" />
+    <frame x="762" y="0" width="781" height="830" extended-state="0" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" sideWeight="0.45042494" weight="0.16644295" />
       <window_info id="Structure" order="1" sideWeight="0.5495751" side_tool="true" weight="0.16577181" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Event Log" order="0" sideWeight="0.50067115" side_tool="true" weight="0.3286119" />
       <window_info anchor="bottom" id="Version Control" order="1" weight="0.3286119" />
-      <window_info anchor="bottom" id="Terminal" order="2" weight="0.6855524" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="2" visible="true" weight="0.5802292" />
       <window_info anchor="bottom" id="Message" order="3" />
       <window_info anchor="bottom" id="Find" order="4" weight="0.3286119" />
       <window_info anchor="bottom" id="Cvs" order="5" weight="0.25" />
@@ -871,7 +847,7 @@
     <entry file="file://$PROJECT_DIR$/MusicTypes.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="592">
-          <caret line="1072" lean-forward="true" selection-start-line="1072" selection-end-line="1072" />
+          <caret line="1072" selection-start-line="1072" selection-end-line="1072" />
           <folding>
             <element signature="e#347#1626#0" />
             <element signature="e#400#592#0" />
@@ -913,8 +889,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/MusicTypes - Abstract Construction.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="350">
-          <caret line="784" lean-forward="true" selection-start-line="784" selection-end-line="784" />
+        <state relative-caret-position="81">
+          <caret line="734" selection-start-line="734" selection-end-line="734" />
           <folding>
             <element signature="e#327#1606#0" />
             <element signature="e#380#572#0" />
@@ -946,6 +922,7 @@
             <element signature="e#5748#5862#0" />
             <element signature="e#6110#6679#0" />
             <element signature="e#6730#7084#0" />
+            <element signature="e#7767#12491#0" />
             <element signature="e#6832#7013#1" />
             <element signature="e#8082#8385#0" />
             <element signature="e#8236#8313#0" />
@@ -1025,17 +1002,18 @@
             <element signature="e#23521#23721#0" />
             <element signature="e#23773#23897#0" />
             <element signature="e#23920#23988#1" />
-            <element signature="e#23820#27132#0" />
             <element signature="e#29760#30020#1" />
             <element signature="e#25221#25664#0" />
             <element signature="e#31107#31329#0" />
             <element signature="e#31377#31500#0" />
             <element signature="e#31726#31989#0" />
+            <element signature="e#27658#29471#0" />
             <element signature="e#30224#30409#1" />
             <element signature="e#28110#28206#0" />
             <element signature="e#28233#28359#0" />
             <element signature="e#28500#28703#0" />
             <element signature="e#28713#28733#0" />
+            <element signature="e#31507#31605#0" />
             <element signature="e#31892#34938#0" />
             <element signature="e#31892#32074#1" />
             <element signature="e#32173#32250#0" />
@@ -1049,7 +1027,7 @@
             <element signature="e#34090#34180#0" />
             <element signature="e#35041#35493#0" />
             <element signature="e#35220#35352#0" />
-            <element signature="e#35566#35776#0" />
+            <element signature="e#33437#33642#0" />
             <element signature="e#35865#36289#0" />
             <element signature="e#35221#35382#1" />
             <element signature="e#36386#36854#0" />
@@ -1061,6 +1039,7 @@
             <element signature="e#40837#40913#0" />
             <element signature="e#39608#40324#0" />
             <element signature="e#40691#40695#0" />
+            <element signature="e#40272#41341#0" />
             <element signature="e#40285#40340#0" />
             <element signature="e#40372#40429#0" />
             <element signature="e#40590#40645#0" />
