@@ -152,3 +152,19 @@ python LyricFramework.py graph -c "Data/MusicCollection" --artists * -tsne
 This command creates this graph:
 
 ![Zoomed Out Results](Pictures/tSNE%20Zoomed%20Out.png)
+
+We can zoom in further to see clustering by genre:
+
+![Zoomed Results](Pictures/tSNE%20Zoom.png)
+
+This is support for my hypothesis that word choice in lyrics is correlated to that artist's genre.
+
+## 2-dimensional wordset scatterplot
+
+Another option is to graph albums/artists/genres by 2 wordset frequencies. One wordset determines the x-axis, and the other determines the y-axis. 
+
+```
+python LyricFramework.py graph -c "Data/MusicCollection" --artists * -scatter -x life -y death
+```
+
+![Wordset 1](Pictures/Wordset%20Analysis%201.png)
