@@ -104,4 +104,51 @@ The framework can rank a group of albums, artists, or genres by word frequencies
 45: Flame - 0.02
 ```
 
-According to the data, the artist "Ledger" has a wordset frequency of 6%. That means that 6% of the words she writes for lyrics are in the wordset that I specified! This suggests that her songs deal with the individual much more than an artist like "Flame"...
+According to the data, the artist "Ledger" has a wordset frequency of 6%. That means that 6% of the words she writes for lyrics are in the wordset that I specified! This suggests that her songs deal with the individual much more than an artist like "Flame" who has only 2% of his vocabulary containing those pronouns. We can use these statistics to make inferences for the message - both written and emotional - of these artists!
+
+## Graphing data
+
+Clear visualization of data is something I love, so of course I had to add it to this program! It currently supports:
+- Scatterplot cluster graphs
+- Scatterplot 2-dimensional wordset graphs
+
+### Cluster graphs
+
+You can visualize the similarities and differences between albums/artists/genres using cluster graphs.
+
+```
+usage: MusicTypes - Abstract Construction.py graph [-h] [-c COLLECTION]
+                                                   [-b ALBUMS [ALBUMS ...]]
+                                                   [-a ARTISTS [ARTISTS ...]]
+                                                   [-g GENRES [GENRES ...]]
+                                                   [-pca] [-tsne] [-scatter]
+                                                   [-x X [X ...]]
+                                                   [-y Y [Y ...]]
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -c COLLECTION, --collection COLLECTION
+                        Collection to be an input
+  -b ALBUMS [ALBUMS ...], --albums ALBUMS [ALBUMS ...]
+                        Album names in collection to be specified as inputs
+  -a ARTISTS [ARTISTS ...], --artists ARTISTS [ARTISTS ...]
+                        Artist names in collection to be specified as inputs
+  -g GENRES [GENRES ...], --genres GENRES [GENRES ...]
+                        Genre names in collection to be specified as inputs
+  -pca                  Use Principle Component Analysis to cluster points
+  -tsne                 Use t-distributed Stochastic Neighbor Embedding to
+                        cluster points
+  -scatter              Make a scatterplot
+  -x X [X ...]          X axis wordset
+  -y Y [Y ...]          Y axis wordset
+```
+
+For example, this command to graph all the artists in my collection as points:
+
+```
+python LyricFramework.py graph -c "Data/MusicCollection" --artists * -tsne
+```
+
+This command creates this graph:
+
+![Zoomed Out Results](Pictures/tSNE%20Zoomed%20Out.png)
