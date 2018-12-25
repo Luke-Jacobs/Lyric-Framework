@@ -1063,7 +1063,7 @@ def graphParse(args):
 
 if __name__ == "__main__":
     # parseInputs()
-    mc = Collection.restore('Data/MC v1.0')
+    mc = Collection.restore('Data/MusicCollection')
     before, pcaProcessed = Analysis.graphWithClustering(mc, Collection.ARTIST,
                                                         clusterMethod=Analysis.PCA, returnVectors=True)
     _, tsneProcessed = Analysis.graphWithClustering(mc, Collection.ARTIST,
