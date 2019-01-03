@@ -43,7 +43,7 @@ Artist B - Genre of B
 ...
 ```
 
-After you write up a list of artists that you want to download, you can have the framework download those artists using this command:
+After you write up a list of artists that you want to download, you can have the framework download the lyrics of those artists using this command:
 
 ```
 python LyricFramework.py download -i [Artist list path] -o [Output filename for Collection] -d [Delay in seconds for downloading each song]
@@ -104,7 +104,7 @@ The framework can rank a group of albums, artists, or genres by word frequencies
 45: Flame - 0.02
 ```
 
-According to the data, the artist "Ledger" has a wordset frequency of 6%. That means that 6% of the words she writes for lyrics are in the wordset that I specified! This suggests that her songs deal with the individual much more than an artist like "Flame" who has only 2% of his vocabulary containing those pronouns. We can use these statistics to make inferences for the message - both written and emotional - of these artists!
+According to the data, the artist "Ledger" has a wordset frequency of 6%. That means that 6% of the words she writes for lyrics are in the wordset that I specified! This suggests that her songs deal with the individual much more than an artist like "Flame" who has only 2% of his vocabulary containing those pronouns. We can use these statistics to make inferences about the subject matter of these artists. 
 
 ## Graphing data
 
