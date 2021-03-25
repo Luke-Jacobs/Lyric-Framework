@@ -1,6 +1,29 @@
 # MultiGenre Lyric Analysis
 
-This program is a framework for collecting and analyzing lyrics.
+## Skills Developed
+
+- How to reduce high dimensional data into plot-able points using PCA
+- How to web scrape
+
+## Project Inspiration
+
+Do you ever listen to the radio and hear just the perfect song to start your day? Or do you hunt online to find a certain song with a catchy chorus and a title that escaped your memory? I certainly have! I love to enjoy music, but I also am motivated to discover its secrets. This project in particular helps me - with the aid of a trusty Python script - to better understand the lyrics of the music I listen to. Specifically, this project analyzes the word usage of thousands of songs for lyrical patterns.
+
+## Project Overview
+
+This program is a framework for collecting and analyzing lyrics from the online database azlyrics.com. Lyrics are collected using a custom web scraper that accepts lists of artist names as input. The program is capable of two forms of analysis: artist clustering and word frequency analysis. Artist clustering allows us to generate graphs like the following that show us how each musician is lyrically similar:
+
+![Zoomed Out Results](Pictures/tSNE%20Zoomed%20Out.png)
+
+This graph contains a lot of artists! We can zoom in further to see clustering by genre:
+
+![Zoomed Results](Pictures/tSNE%20Zoom.png)
+
+The segregated clustering that we see in this figure is support for my hypothesis that word choice in lyrics is correlated to that artist's genre. This complex graph was generated with this simple command:
+
+```
+python LyricFramework.py graph -c "Data/MusicCollection" --artists * -tsne
+```
 
 ## Structure
 
