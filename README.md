@@ -15,7 +15,7 @@ This program is a framework for collecting and analyzing lyrics from the online 
 
 ![Zoomed Out Results](Pictures/tSNE%20Zoomed%20Out.png)
 
-This graph contains a lot of artists! We can zoom in further to see clustering by genre:
+This graph contains a lot of artists! (I like my Christian rock :) ) We can zoom in further to see clustering by genre:
 
 ![Zoomed Results](Pictures/tSNE%20Zoom.png)
 
